@@ -1,4 +1,4 @@
-import DateSlider from "./DateSlider";
+import DateSliderTwo from "./DateSliderTwo";
 
 const data = [
 	{ date: "2022-01-01" },
@@ -45,10 +45,20 @@ const data = [
 ];
 
 
+// const newData = data.map((obj) => {
+// 		return {
+// 			...obj,
+// 			date: (obj.date).substring(0,10),
+// 		}
+
+// })
+
+// console.log(newData)
+
 function App() {
 	return (
 		<div className="App">
-			<DateSlider minDate="2022-01-01" maxDate="2022-05-10" data={data} />
+			<DateSliderTwo minDate="2000-01-01" maxDate="2022-05-10" data={data} />
 		</div>
 	);
 }
