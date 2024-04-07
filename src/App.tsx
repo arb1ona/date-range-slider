@@ -1,15 +1,5 @@
 import DateSlider from "./DateSlider";
-import { data } from "./data";
-
-// const newData = data.map((obj) => {
-// 		return {
-// 			...obj,
-// 			date: (obj.date).substring(0,10),
-// 		}
-
-// })
-
-// console.log(newData)
+import { data } from "./constants/data";
 
 function App() {
 	return (
