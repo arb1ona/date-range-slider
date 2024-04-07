@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Slider, Tooltip } from "@material-ui/core";
 import { format } from "date-fns";
 import { ValueLabelProps } from "@material-ui/core/Slider";
+import handleChange from "./constants/handleChange";
 
 interface DateSliderProps {
 	minDate: string;
@@ -9,30 +10,11 @@ interface DateSliderProps {
 	data: { date: string }[];
 }
 
-// interface TooltipProps {
-// 	open: Boolean;
-// 	value: string;
-// 	children?: React.ReactNode; // 👈️ for demo purposes
-// }
-
 const DateSlider: React.FC<DateSliderProps> = ({ minDate, maxDate, data }) => {
 	const [selectedDateRange, setSelectedDateRange] = useState<[string, string]>([
 		minDate,
 		maxDate,
 	]);
-
-	const handleChange = (event: any, newValue: number | number[]) => {
-		if (Array.isArray(newValue)) {
-			const newDateRange = newValue.map((seconds) =>
-				new Date(seconds * 1000).toISOString()
-			);
-			setSelectedDateRange([newDateRange[0], newDateRange[1]]);
-		} else {
-			const newDate = new Date(newValue * 1000).toISOString();
-			const [startDate, endDate] = selectedDateRange;
-			setSelectedDateRange([startDate, newDate]);
-		}
-	};
 
 	const filterData = (
 		data: { date: string }[],
@@ -54,10 +36,8 @@ const DateSlider: React.FC<DateSliderProps> = ({ minDate, maxDate, data }) => {
 	const firstDate = format(new Date(selectedDateRange[0]), "yyyy MMM");
 	const secondDate = format(new Date(selectedDateRange[1]), "yyyy MMM");
 
-	// console.log(selectedDateRange.find((a) => a === selectedDateRange[0]));
-
 	const ValueLabelComponent = (props: ValueLabelProps) => {
-		const { value, children, open } = props;
+		const { value, children } = props;
 
 		let label: string;
 
@@ -112,7 +92,7 @@ const DateSlider: React.FC<DateSliderProps> = ({ minDate, maxDate, data }) => {
 						min={minDateSeconds}
 						max={maxDateSeconds}
 						value={value}
-						onChange={handleChange}
+						onChange={handleChange({ setSelectedDateRange, selectedDateRange })}
 						valueLabelDisplay="on"
 						ValueLabelComponent={(props) => <ValueLabelComponent {...props} />}
 					/>
